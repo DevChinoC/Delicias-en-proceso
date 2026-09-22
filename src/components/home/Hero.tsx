@@ -29,7 +29,7 @@ function Hero() {
         </span>
 
         <h1 className="hero-title fade-up fade-up-3">
-          Dulces creados con<br />
+          Delicias creadas con<br />
           <em>amor y pasión</em>
         </h1>
 

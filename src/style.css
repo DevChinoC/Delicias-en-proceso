@@ -348,14 +348,23 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
   border: 1px solid rgba(192, 83, 90, .08);
 }
 
+.card-3d {
+  transform-style: preserve-3d;
+}
+
+.card-touch-active {
+  transform: scale(0.97) translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(74, 48, 32, 0.2) !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  border-color: rgba(201, 150, 31, 0.3);
 }
 
 .card-img {
   width: 100%;
-  aspect-ratio: 4/3;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   background: linear-gradient(135deg, #faebd6 0%, #f5d5d5 100%);
   display: flex;

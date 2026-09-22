@@ -1,3 +1,5 @@
+import gelatina1 from '../assets/productos/gelatina1.png'
+
 export interface Product {
   id: number
   name: string
@@ -11,11 +13,11 @@ export interface Product {
 export const products: Product[] = [
   {
     id: 1,
-    name: 'Pastel de Chocolate',
-    description: 'Húmedo pastel de chocolate con ganache y frutos rojos.',
-    price: 450,
-    category: 'pasteles',
-    image: '',
+    name: 'Gelatina Artística Mosaico',
+    description: 'Deliciosa gelatina artesanal multicolor con leche condensada y un acabado cristalino único.',
+    price: 350,
+    category: 'postres',
+    image: gelatina1,
     featured: true,
   },
   {
