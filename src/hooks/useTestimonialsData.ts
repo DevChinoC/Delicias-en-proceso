@@ -61,34 +61,23 @@ export function useTestimonialsData() {
             nombre: newComment.nombre,
             comentario: newComment.comentario,
             calificacion: newComment.calificacion,
+            estado: 'pendiente',
           },
         ])
 
         if (!error) {
-          // El comentario requiere aprobación, no se muestra inmediatamente
+          // El comentario se envió correctamente a Supabase y requiere aprobación
           return { success: true, requiresApproval: true }
         }
 
         console.warn('Supabase insert error:', error.message)
       } catch (err) {
-        console.warn('Supabase insert failed, using local fallback:', err)
+        console.warn('Supabase insert failed:', err)
       }
     }
 
-    // Fallback: agregar localmente
-    setComments((prev) => [newComment, ...prev])
-    try {
-      const raw = localStorage.getItem(LOCAL_STORAGE_KEY)
-      const existing: CommentItem[] = raw ? JSON.parse(raw) : []
-      localStorage.setItem(
-        LOCAL_STORAGE_KEY,
-        JSON.stringify([newComment, ...existing])
-      )
-    } catch (e) {
-      console.error('LocalStorage write error:', e)
-    }
-
-    return { success: true, requiresApproval: false }
+    // Todos los comentarios enviados requieren aprobación previa antes de mostrarse
+    return { success: true, requiresApproval: true }
   }
 
   return { comments, submitComment }

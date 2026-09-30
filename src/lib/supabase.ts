@@ -13,7 +13,9 @@ export const isSupabaseConfigured = Boolean(
   supabaseUrl &&
   supabaseAnonKey &&
   !supabaseUrl.includes('your-project-id') &&
-  !supabaseAnonKey.includes('your-anon-key')
+  !supabaseAnonKey.includes('your-anon-key') &&
+  !supabaseUrl.includes('TU_SUPABASE_URL') &&
+  !supabaseAnonKey.includes('TU_SUPABASE_ANON_KEY')
 )
 
 export const supabase = createClient(
