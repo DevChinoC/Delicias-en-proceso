@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
-import { Link } from 'react-router-dom'
 import type { Product } from '../../data/products'
+import { buildWhatsAppLink } from '../../lib/whatsapp'
 
 interface ProductCardProps {
   product: Product
@@ -157,7 +157,7 @@ function ProductCard({ product }: ProductCardProps) {
         <p className="card-desc line-clamp-2">{product.description}</p>
       </div>
 
-      {/* Card Footer with stable 'Ver producto →' CTA */}
+      {/* Card Footer con CTA a WhatsApp */}
       <div className="card-footer" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
         <span
           style={{
@@ -168,8 +168,15 @@ function ProductCard({ product }: ProductCardProps) {
         >
           Consulta disponibilidad
         </span>
-        <Link
-          to="/contacto"
+        <a
+          href={buildWhatsAppLink({
+            productName: product.name,
+            description: product.description,
+            imageUrl: new URL(product.image, window.location.origin).href,
+          })}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Pedir ${product.name} por WhatsApp`}
           style={{
             display: 'inline-flex',
             alignItems: 'center',
@@ -179,10 +186,11 @@ function ProductCard({ product }: ProductCardProps) {
             color: 'var(--color-rose)',
             transform: isHovered ? 'translateX(3px)' : 'translateX(0)',
             transition: 'transform 0.2s ease, color 0.2s ease',
+            textDecoration: 'none',
           }}
         >
           Ver producto <span style={{ transition: 'transform 0.2s ease', transform: isHovered ? 'translateX(2px)' : 'none' }}>→</span>
-        </Link>
+        </a>
       </div>
     </article>
   )

@@ -1,57 +1,150 @@
+import { useState, useEffect, useCallback } from 'react'
 import { galleryItems } from '../../data/gallery'
 
-// Heights vary to create visual rhythm in masonry
-const heights = [200, 260, 220, 280, 210, 240]
-
-// Placeholder SVG for items without an image
-function ImagePlaceholder({ height }: { height: number }) {
-  return (
-    <div
-      style={{
-        height,
-        background: 'linear-gradient(135deg, #faebd6 0%, #f5d5d5 100%)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      <svg
-        width="40"
-        height="40"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="var(--color-rose-light)"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <rect x="3" y="3" width="18" height="18" rx="3" />
-        <circle cx="8.5" cy="8.5" r="1.5" />
-        <path d="m21 15-5-5L5 21" />
-      </svg>
-    </div>
-  )
-}
-
 function GalleryGrid() {
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
+
+  const selectedItem = selectedIndex !== null ? galleryItems[selectedIndex] : null
+
+  const handlePrev = useCallback(() => {
+    if (selectedIndex === null) return
+    setSelectedIndex((prev) => (prev! > 0 ? prev! - 1 : galleryItems.length - 1))
+  }, [selectedIndex])
+
+  const handleNext = useCallback(() => {
+    if (selectedIndex === null) return
+    setSelectedIndex((prev) => (prev! < galleryItems.length - 1 ? prev! + 1 : 0))
+  }, [selectedIndex])
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (selectedIndex === null) return
+      if (e.key === 'Escape') setSelectedIndex(null)
+      if (e.key === 'ArrowLeft') handlePrev()
+      if (e.key === 'ArrowRight') handleNext()
+    },
+    [selectedIndex, handlePrev, handleNext]
+  )
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [handleKeyDown])
+
   return (
-    <div className="masonry">
-      {galleryItems.map((item, i) => (
-        <div key={item.id} className="masonry-item">
-          {item.src ? (
-            <img
-              src={item.src}
-              alt={item.alt}
-              style={{ width: '100%', display: 'block' }}
-            />
-          ) : (
-            <ImagePlaceholder height={heights[i % heights.length]} />
-          )}
+    <div>
+      {/* Masonry Grid */}
+      <div className="masonry">
+        {galleryItems.map((item, idx) => (
+          <div
+            key={item.id}
+            className="masonry-item"
+            onClick={() => setSelectedIndex(idx)}
+            role="button"
+            tabIndex={0}
+            aria-label={item.alt}
+          >
+            {item.type === 'video' ? (
+              <>
+                <video
+                  src={item.src}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  aria-label={item.alt}
+                  style={{
+                    width: '100%',
+                    display: 'block',
+                    borderRadius: 'var(--radius-md)',
+                    objectFit: 'cover',
+                  }}
+                />
+                <div className="video-badge">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                  </svg>
+                  Video
+                </div>
+              </>
+            ) : (
+              <img
+                src={item.src}
+                alt={item.alt}
+                loading="lazy"
+                style={{
+                  width: '100%',
+                  display: 'block',
+                  borderRadius: 'var(--radius-md)',
+                  objectFit: 'cover',
+                }}
+              />
+            )}
+            <div className="gallery-overlay">
+              <span>{item.alt}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Lightbox Modal */}
+      {selectedItem && (
+        <div className="lightbox-modal" onClick={() => setSelectedIndex(null)}>
+          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="lightbox-close"
+              onClick={() => setSelectedIndex(null)}
+              aria-label="Cerrar vista previa"
+            >
+              ✕
+            </button>
+
+            {galleryItems.length > 1 && (
+              <>
+                <button
+                  className="lightbox-nav lightbox-prev"
+                  onClick={handlePrev}
+                  aria-label="Anterior"
+                >
+                  ❮
+                </button>
+                <button
+                  className="lightbox-nav lightbox-next"
+                  onClick={handleNext}
+                  aria-label="Siguiente"
+                >
+                  ❯
+                </button>
+              </>
+            )}
+
+            {selectedItem.type === 'video' ? (
+              <video
+                src={selectedItem.src}
+                controls
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="lightbox-media"
+              />
+            ) : (
+              <img
+                src={selectedItem.src}
+                alt={selectedItem.alt}
+                className="lightbox-media"
+              />
+            )}
+
+            <p style={{ color: 'rgba(255,255,255,0.85)', marginTop: '1rem', fontSize: '0.9rem' }}>
+              {selectedItem.alt}
+            </p>
+          </div>
         </div>
-      ))}
+      )}
     </div>
   )
 }
 
 export default GalleryGrid
+

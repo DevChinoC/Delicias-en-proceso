@@ -7,6 +7,5 @@ export const categories: Category[] = [
   { id: 'todos', label: 'Todos' },
   { id: 'gelatinas', label: 'Gelatinas' },
   { id: 'pasteles', label: 'Pasteles' },
-  { id: 'cupcakes', label: 'Cupcakes' },
   { id: 'postres', label: 'Postres' },
 ]

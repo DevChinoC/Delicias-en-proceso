@@ -4,7 +4,7 @@ import logo from '../../assets/logo.png'
 const features = [
   {
     icon: '✦',
-    title: 'Ingredientes naturales',
+    title: 'Ingredientes de calidad',
     desc: 'Usamos sólo ingredientes frescos y de la mejor calidad en cada preparación.',
   },
   {

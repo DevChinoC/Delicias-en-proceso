@@ -73,7 +73,7 @@ function Header() {
         <img
           src={logo}
           alt="Delicias en proceso"
-          style={{ height: 80, width: 'auto', marginBottom: '1rem' }}
+          style={{ height: 80, width: 80, borderRadius: '50%', objectFit: 'cover', marginBottom: '1rem', boxShadow: 'var(--shadow-md)' }}
         />
         {links.map((l, i) => (
           <NavLink

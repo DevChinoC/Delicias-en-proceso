@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { siteConfig } from '../config/site'
+import { WhatsAppIcon, FacebookIcon, MailIcon } from '../components/ui/SocialIcons'
 
 const contactItems = [
   {
@@ -8,6 +9,7 @@ const contactItems = [
     href: siteConfig.whatsapp ? `https://wa.me/${siteConfig.whatsapp}` : null,
     label: siteConfig.whatsapp ? `+${siteConfig.whatsapp}` : 'Próximamente',
     external: true,
+    icon: WhatsAppIcon,
   },
   {
     title: 'Facebook',
@@ -15,6 +17,7 @@ const contactItems = [
     href: siteConfig.facebook,
     label: 'Visitar Facebook',
     external: true,
+    icon: FacebookIcon,
   },
   {
     title: 'Correo',
@@ -22,6 +25,7 @@ const contactItems = [
     href: siteConfig.email ? `mailto:${siteConfig.email}` : null,
     label: siteConfig.email || 'Próximamente',
     external: false,
+    icon: MailIcon,
   },
 ]
 
@@ -60,42 +64,39 @@ function Contact() {
       <section className="section">
         <div className="container" style={{ maxWidth: 780 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '3rem' }}>
-            {contactItems.map((item) => (
-              <div key={item.title} className="contact-card">
-                {/* Thin rose left accent */}
-                <div
-                  style={{
-                    width: 4,
-                    borderRadius: 4,
-                    background: 'var(--color-rose)',
-                    alignSelf: 'stretch',
-                    flexShrink: 0,
-                  }}
-                />
-                <div style={{ flex: 1 }}>
-                  <p style={{ fontWeight: 600, color: 'var(--color-mocha)', marginBottom: '.25rem' }}>
-                    {item.title}
-                  </p>
-                  <p style={{ fontSize: '.875rem', color: 'var(--color-text-muted)', marginBottom: '.5rem' }}>
-                    {item.desc}
-                  </p>
-                  {item.href ? (
-                    <a
-                      href={item.href}
-                      target={item.external ? '_blank' : undefined}
-                      rel={item.external ? 'noopener noreferrer' : undefined}
-                      style={{ color: 'var(--color-rose)', fontWeight: 500, fontSize: '.9rem' }}
-                    >
-                      {item.label} →
-                    </a>
-                  ) : (
-                    <span style={{ color: 'var(--color-text-muted)', fontSize: '.9rem' }}>
-                      {item.label}
-                    </span>
-                  )}
+            {contactItems.map((item) => {
+              const IconComp = item.icon
+              return (
+                <div key={item.title} className="contact-card">
+                  <div className="contact-icon" style={{ color: 'var(--color-rose)' }}>
+                    <IconComp size={24} />
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <p style={{ fontWeight: 600, color: 'var(--color-mocha)', marginBottom: '.25rem' }}>
+                      {item.title}
+                    </p>
+                    <p style={{ fontSize: '.875rem', color: 'var(--color-text-muted)', marginBottom: '.5rem' }}>
+                      {item.desc}
+                    </p>
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        target={item.external ? '_blank' : undefined}
+                        rel={item.external ? 'noopener noreferrer' : undefined}
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '.4rem', color: 'var(--color-rose)', fontWeight: 500, fontSize: '.9rem' }}
+                      >
+                        <span>{item.label}</span>
+                        <span>→</span>
+                      </a>
+                    ) : (
+                      <span style={{ color: 'var(--color-text-muted)', fontSize: '.9rem' }}>
+                        {item.label}
+                      </span>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
 
           {/* CTA strip */}
@@ -120,7 +121,9 @@ function Contact() {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  display: 'inline-block',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '.5rem',
                   background: '#fff',
                   color: 'var(--color-rose)',
                   fontWeight: 700,
@@ -129,7 +132,8 @@ function Contact() {
                   fontSize: '.9rem',
                 }}
               >
-                Escribir por WhatsApp
+                <WhatsAppIcon size={20} />
+                <span>Escribir por WhatsApp</span>
               </a>
             ) : (
               <Link

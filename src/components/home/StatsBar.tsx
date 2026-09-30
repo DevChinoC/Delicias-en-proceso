@@ -1,6 +1,6 @@
 const stats = [
   { num: '+500', label: 'Pedidos entregados' },
-  { num: '100%', label: 'Ingredientes naturales' },
+  { num: '100%', label: 'Ingredientes de calidad' },
   { num: 'Artesanal', label: 'Cada pieza, única' },
 ]
 

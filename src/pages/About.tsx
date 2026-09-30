@@ -2,7 +2,7 @@ import logo from '../assets/logo.png'
 
 const values = [
   {
-    title: 'Ingredientes naturales',
+    title: 'Ingredientes de calidad',
     desc: 'Seleccionamos con cuidado cada ingrediente. Priorizamos lo fresco y lo artesanal.',
   },
   {

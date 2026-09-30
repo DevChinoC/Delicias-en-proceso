@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import { siteConfig } from '../../config/site'
 import logo from '../../assets/logo.png'
+import { FacebookIcon, WhatsAppIcon, MailIcon, MapPinIcon, InstagramIcon } from '../ui/SocialIcons'
 
 const navLinks = [
   { to: '/productos', label: 'Productos' },
@@ -25,17 +26,6 @@ function Footer() {
             />
             <p className="footer-tagline">{siteConfig.tagline}</p>
             <div className="footer-social">
-              {siteConfig.facebook && (
-                <a
-                  href={siteConfig.facebook}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-btn"
-                  aria-label="Facebook"
-                >
-                  f
-                </a>
-              )}
               {siteConfig.whatsapp && (
                 <a
                   href={`https://wa.me/${siteConfig.whatsapp}`}
@@ -43,8 +33,33 @@ function Footer() {
                   rel="noopener noreferrer"
                   className="social-btn"
                   aria-label="WhatsApp"
+                  title="Escríbenos en WhatsApp"
                 >
-                  W
+                  <WhatsAppIcon size={18} />
+                </a>
+              )}
+              {siteConfig.facebook && (
+                <a
+                  href={siteConfig.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-btn"
+                  aria-label="Facebook"
+                  title="Síguenos en Facebook"
+                >
+                  <FacebookIcon size={18} />
+                </a>
+              )}
+              {siteConfig.instagram && (
+                <a
+                  href={siteConfig.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-btn"
+                  aria-label="Instagram"
+                  title="Síguenos en Instagram"
+                >
+                  <InstagramIcon size={18} />
                 </a>
               )}
             </div>
@@ -69,13 +84,10 @@ function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer-link"
+                style={{ display: 'flex', alignItems: 'center', gap: '.5rem' }}
               >
-                WhatsApp
-              </a>
-            )}
-            {siteConfig.email && (
-              <a href={`mailto:${siteConfig.email}`} className="footer-link">
-                {siteConfig.email}
+                <WhatsAppIcon size={16} />
+                <span>WhatsApp</span>
               </a>
             )}
             {siteConfig.facebook && (
@@ -84,12 +96,29 @@ function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer-link"
+                style={{ display: 'flex', alignItems: 'center', gap: '.5rem' }}
               >
-                Facebook
+                <FacebookIcon size={16} />
+                <span>Facebook</span>
               </a>
             )}
-            <NavLink to="/contacto" className="footer-link">
-              Encuéntranos
+            {siteConfig.email && (
+              <a 
+                href={`mailto:${siteConfig.email}`} 
+                className="footer-link"
+                style={{ display: 'flex', alignItems: 'center', gap: '.5rem' }}
+              >
+                <MailIcon size={16} />
+                <span>{siteConfig.email}</span>
+              </a>
+            )}
+            <NavLink 
+              to="/contacto" 
+              className="footer-link"
+              style={{ display: 'flex', alignItems: 'center', gap: '.5rem' }}
+            >
+              <MapPinIcon size={16} />
+              <span>Encuéntranos</span>
             </NavLink>
           </div>
         </div>
