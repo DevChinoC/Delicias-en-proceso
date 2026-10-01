@@ -5,9 +5,9 @@ import { FacebookIcon, WhatsAppIcon, MailIcon, MapPinIcon, InstagramIcon } from 
 
 const navLinks = [
   { to: '/productos', label: 'Productos' },
-  { to: '/galeria',   label: 'Galería' },
-  { to: '/nosotros',  label: 'Nosotros' },
-  { to: '/contacto',  label: 'Contacto' },
+  { to: '/galeria', label: 'Galería' },
+  { to: '/nosotros', label: 'Nosotros' },
+  { to: '/contacto', label: 'Contacto' },
 ]
 
 function Footer() {
@@ -103,8 +103,8 @@ function Footer() {
               </a>
             )}
             {siteConfig.email && (
-              <a 
-                href={`mailto:${siteConfig.email}`} 
+              <a
+                href={`mailto:${siteConfig.email}`}
                 className="footer-link"
                 style={{ display: 'flex', alignItems: 'center', gap: '.5rem' }}
               >
@@ -112,8 +112,8 @@ function Footer() {
                 <span>{siteConfig.email}</span>
               </a>
             )}
-            <NavLink 
-              to="/contacto" 
+            <NavLink
+              to="/contacto"
               className="footer-link"
               style={{ display: 'flex', alignItems: 'center', gap: '.5rem' }}
             >
@@ -127,6 +127,17 @@ function Footer() {
         <div className="footer-bottom">
           <span>© {year} {siteConfig.name}. Todos los derechos reservados.</span>
           <span>Hecho con amor</span>
+          <span>
+            Desarrollado por{' '}
+            <a
+              href="https://marcoschinportafolio.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-dev-link"
+            >
+              Marcos Chino
+            </a>
+          </span>
         </div>
       </div>
     </footer>

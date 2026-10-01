@@ -600,6 +600,18 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
   color: rgba(255,255,255,.4);
 }
 
+.footer-dev-link {
+  color: var(--color-rose-light);
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--transition);
+  border-bottom: 1px solid transparent;
+}
+.footer-dev-link:hover {
+  color: #fff;
+  border-bottom-color: var(--color-rose-light);
+}
+
 /* ─── WhatsApp FAB ───────────────────────────────────────── */
 .whatsapp-fab {
   position: fixed;
