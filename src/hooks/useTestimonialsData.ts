@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { supabase, isSupabaseConfigured } from '../lib/supabase'
-import { DEFAULT_TESTIMONIALS } from '../data/testimonials'
 import type { CommentItem } from '../types/testimonials'
 
 // ─────────────────────────────────────────────
@@ -9,10 +8,9 @@ import type { CommentItem } from '../types/testimonials'
 // con fallback a localStorage si no hay conexión
 // ─────────────────────────────────────────────
 
-const LOCAL_STORAGE_KEY = 'delicias_comments'
 
 export function useTestimonialsData() {
-  const [comments, setComments] = useState<CommentItem[]>(DEFAULT_TESTIMONIALS)
+  const [comments, setComments] = useState<CommentItem[]>([])
 
   // ── Carga inicial ──────────────────────────
   useEffect(() => {
@@ -25,25 +23,13 @@ export function useTestimonialsData() {
             .eq('estado', 'aprobado')
             .order('created_at', { ascending: false })
 
-          if (!error && data && data.length > 0) {
-            setComments([...data, ...DEFAULT_TESTIMONIALS])
-            return
+          if (!error && data) {
+            setComments(data)
           }
           if (error) console.warn('Supabase fetch error:', error.message)
         } catch (err) {
-          console.warn('Supabase unreachable, using fallback:', err)
+          console.warn('Supabase unreachable:', err)
         }
-      }
-
-      // Fallback: localStorage
-      try {
-        const raw = localStorage.getItem(LOCAL_STORAGE_KEY)
-        if (raw) {
-          const parsed: CommentItem[] = JSON.parse(raw)
-          setComments([...parsed, ...DEFAULT_TESTIMONIALS])
-        }
-      } catch (e) {
-        console.error('Error loading local comments:', e)
       }
     }
 

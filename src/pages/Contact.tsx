@@ -6,8 +6,8 @@ const contactItems = [
   {
     title: 'WhatsApp',
     desc: 'La forma más rápida de contactarnos. Respondemos en minutos.',
-    href: siteConfig.whatsapp ? `https://wa.me/${siteConfig.whatsapp}` : null,
-    label: siteConfig.whatsapp ? `+${siteConfig.whatsapp}` : 'Próximamente',
+    href: siteConfig.whatsapp ? `https://api.whatsapp.com/send?phone=${siteConfig.whatsapp}` : null,
+    label: siteConfig.whatsapp ? 'Enviar mensaje por WhatsApp' : 'Próximamente',
     external: true,
     icon: WhatsAppIcon,
   },
@@ -117,7 +117,7 @@ function Contact() {
             </p>
             {siteConfig.whatsapp ? (
               <a
-                href={`https://wa.me/${siteConfig.whatsapp}`}
+                href={`https://api.whatsapp.com/send?phone=${siteConfig.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{

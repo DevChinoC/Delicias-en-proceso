@@ -1,5 +1,5 @@
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
 
 /* ─── Design Tokens ──────────────────────────────────────── */
 /*
@@ -1078,4 +1078,48 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
 @keyframes modalSlideUp {
   from { opacity: 0; transform: translateY(30px) scale(0.97); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ─── Carrusel: estado vacío ────────────────────────────── */
+.testimonial-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.testimonial-empty-icon {
+  font-size: 3rem;
+  animation: floatIcon 3s ease-in-out infinite;
+}
+.testimonial-empty-text {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--color-mocha-light);
+  font-style: italic;
+}
+@keyframes floatIcon {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* ─── Transición suave entre páginas y secciones ──────── */
+.page-wrapper {
+  will-change: opacity, transform;
+}
+
+.page-fade-in {
+  animation: pageEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pageEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.995);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }

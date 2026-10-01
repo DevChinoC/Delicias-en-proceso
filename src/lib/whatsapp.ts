@@ -26,17 +26,24 @@ export function buildWhatsAppLink({
   // Si el número ya empieza con 52 (México) lo dejamos; si no, lo agregamos
   const phone = rawPhone.startsWith('52') ? rawPhone : `52${rawPhone}`
 
+  // Emojis con secuencias Unicode escapadas para evitar corrupción de codificación (ANSI/UTF-8)
+  const WAVE = '\u{1F44B}'       // 👋
+  const CAKE = '\u{1F370}'       // 🍰
+  const MEMO = '\u{1F4DD}'       // 📝
+  const FRAME = '\u{1F5BC}\uFE0F' // 🖼️
+  const SMILE = '\u{1F60A}'      // 😊
+
   // Mensaje predeterminado
   const message = [
-    `¡Hola! 👋 Me interesa este producto de *Delicias en Proceso*:`,
+    `¡Hola! ${WAVE} Me interesa este producto de *Delicias en Proceso*:`,
     ``,
-    `🍰 *${productName}*`,
-    `📝 ${description}`,
+    `${CAKE} *${productName}*`,
+    `${MEMO} ${description}`,
     ``,
-    `🖼️ Imagen del producto: ${imageUrl}`,
+    `${FRAME} Imagen del producto: ${imageUrl}`,
     ``,
-    `¿Está disponible? ¿Me pueden dar más información? 😊`,
+    `¿Está disponible? ¿Me pueden dar más información? ${SMILE}`,
   ].join('\n')
 
-  return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
+  return `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`
 }

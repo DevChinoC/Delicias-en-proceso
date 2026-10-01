@@ -1,10 +1,24 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { products } from '../../data/products'
+import { products, type Product } from '../../data/products'
 import ProductCard from '../products/ProductCard'
 
+// Función de mezcla aleatoria (Fisher-Yates)
+function shuffleArray<T>(array: T[]): T[] {
+  const arr = [...array]
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[arr[i], arr[j]] = [arr[j], arr[i]]
+  }
+  return arr
+}
+
 function FeaturedProducts() {
-  const featured = products.filter((p) => p.featured)
+  // Inicializa con una selección aleatoria de 6 productos cada vez que se monta la página de inicio
+  const [displayedProducts] = useState<Product[]>(() =>
+    shuffleArray(products).slice(0, 6)
+  )
 
   return (
     <section className="section">
@@ -21,7 +35,7 @@ function FeaturedProducts() {
 
         {/* Cards */}
         <div className="grid-3">
-          {featured.map((product) => (
+          {displayedProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
@@ -43,3 +57,4 @@ function FeaturedProducts() {
 }
 
 export default FeaturedProducts
+

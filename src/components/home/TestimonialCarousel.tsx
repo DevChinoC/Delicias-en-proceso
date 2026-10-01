@@ -3,7 +3,8 @@ import type { CommentItem } from '../../types/testimonials'
 // ─────────────────────────────────────────────
 // Componente: TestimonialCarousel
 // Renderiza el carrusel de testimonios con animaciones,
-// controles de navegación y barra de progreso
+// controles de navegación y barra de progreso.
+// Si no hay comentarios, muestra un estado vacío.
 // ─────────────────────────────────────────────
 
 interface Props {
@@ -31,6 +32,19 @@ export function TestimonialCarousel({
   onMouseEnter,
   onMouseLeave,
 }: Props) {
+
+  // ── Estado vacío ──────────────────────────
+  if (comments.length === 0) {
+    return (
+      <div className="testimonial-empty">
+        <div className="testimonial-empty-icon">🍰</div>
+        <p className="testimonial-empty-text">
+          ¡Sé el primero en compartir tu experiencia!
+        </p>
+      </div>
+    )
+  }
+
   const current = comments[activeIndex] ?? comments[0]
 
   const cardClass = isAnimating
